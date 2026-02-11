@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comic App que permite gestionar comics propios">
+    <meta name="author" content="Cattcloud">
+    <title>ComicTracker - Tu biblioteca personal de cómics</title>
+</head>
+
+<body>
+    <header>
+        <h1>ComicTracker</h1>
+        <p>Tu biblioteca personal de cómics</p>
+        <nav aria-label="Navegación principal">
+            <ul>
+                <li>
+                    <a href="#inicio">Inicio</a>
+                </li>
+                <li>
+                    <a href="#coleccion">Mi Colección</a>
+                </li>
+                <li>
+                    <a href="#estadisticas">Estadísticas</a>
+                </li>
+                <li>
+                    <a href="#agregar">Agregar Cómic</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="inicio">
+            <h2>Descubre y Organiza tus Cómics Favoritos</h2>
+            <p>Gestiona tu colección, califica tus lecturas, escribe reseñas personales y descubre nuevos títulos para
+                tu biblioteca.</p>
+            <p>
+                <a href="#coleccion">Explorar Coleccion</a>
+                <a href="#agregar">Agregar Cómic</a>
+            </p>
+        </section>
+        <section>
+            <h2>Buscar comics</h2>
+            <form role="search">
+                <label for="buscar">Buscar por título, autor o género:</label>
+                <input type="search" id="buscar" name="buscar" autocomplete="off"
+                    placeholder="Ej: Watchmen, Alan Moore, Superhero…">
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <section id="tab-coleccion" aria-labelledby="tab-coleccion-label">
+            <h2 id="tab-coleccion-label">Mi Colección</h2>
+            <div role="tablist" aria-label="Pestañas de colección">
+                <button id="tab-todos-label" aria-controls="tab-todos" role="tab" aria-selected="true">Todos los
+                    cómics</button>
+                <button id="tab-leido-label" aria-controls="tab-leido" role="tab" aria-selected="false">Cómics
+                    leídos</button>
+                <button id="tab-no-leido-label" aria-controls="tab-no-leido" role="tab" aria-selected="false">Cómics por
+                    leer</button>
+                <button id="tab-favorito-label" aria-controls="tab-favorito" role="tab" aria-selected="false">Cómics
+                    favoritos</button>
+                <button id="tab-abandonado-label" aria-controls="tab-abandonado" role="tab" aria-selected="false">Cómics
+                    abandonados</button>
+            </div>
+
+            <div role="tabpanel" id="tab-todos" aria-labelledby="tab-todos-label">
+                <h3>Todos los cómics</h3>
+                <p>Aquí puedes ver todos los cómics que has agregado a tu colección.</p>
+            </div>
+            <div role="tabpanel" id="tab-leido" aria-labelledby="tab-leido-label" hidden>
+                <h3>Cómics leídos</h3>
+                <p>Aquí puedes ver todos los cómics que has leído.</p>
+            </div>
+            <div role="tabpanel" id="tab-no-leido" aria-labelledby="tab-no-leido-label" hidden>
+                <h3>Cómics por leer</h3>
+                <p>Aquí puedes ver todos los cómics que no has leído.</p>
+            </div>
+            <div role="tabpanel" id="tab-favorito" aria-labelledby="tab-favorito-label" hidden>
+                <h3>Cómics favoritos</h3>
+                <p>Aquí puedes ver todos los cómics que has marcado como favoritos.</p>
+            </div>
+            <div role="tabpanel" id="tab-abandonado" aria-labelledby="tab-abandonado-label" hidden>
+                <h3>Cómics abandonados</h3>
+                <p>Aquí puedes ver todos los cómics que has abandonado.</p>
+            </div>
+        </section>
+
+
+        <section>
+            <h2>Filtrar Colección</h2>
+            <form>
+                <fieldset>
+                    <legend>Filtrar por Estado</legend>
+                    <input type="radio" id="estado-todos" name="estado" value="todos" checked>
+                    <label for="estado-todos">Todos</label>
+                    <input type="radio" id="estado-leido" name="estado" value="leido">
+                    <label for="estado-leido">Leído</label>
+                    <input type="radio" id="estado-no-leido" name="estado" value="no-leido">
+                    <label for="estado-no-leido">Por Leer</label>
+                    <input type="radio" id="estado-favorito" name="estado" value="favorito">
+                    <label for="estado-favorito">Favoritos</label>
+                    <input type="radio" id="estado-abandonado" name="estado" value="abandonado">
+                    <label for="estado-abandonado">Abandonados</label>
+                </fieldset>
+                <fieldset>
+                    <legend>Filtrar por Género</legend>
+                    <input type="checkbox" id="genero-superhero" name="genero" value="superhero">
+                    <label for="genero-superhero">Superhero</label>
+                    <input type="checkbox" id="genero-fantasy" name="genero" value="fantasy">
+                    <label for="genero-fantasy">Fantasy</label>
+                    <input type="checkbox" id="genero-horror" name="genero" value="horror">
+                    <label for="genero-horror">Horror</label>
+                    <input type="checkbox" id="genero-scifi" name="genero" value="scifi">
+                    <label for="genero-scifi">Sci-Fi</label>
+                    <input type="checkbox" id="genero-drama" name="genero" value="drama">
+                    <label for="genero-drama">Drama</label>
+                </fieldset>
+                <fieldset>
+                    <legend>Filtrar por año:</legend>
+                    <label for="anio-desde">Desde:</label>
+                    <input type="number" id="anio-desde" name="anio-desde" min="1900" max="2025" placeholder="Ej: 1986">
+                    <label for="anio-hasta">Hasta:</label>
+                    <input type="number" id="anio-hasta" name="anio-hasta" min="1900" max="2025" placeholder="Ej: 2025">
+                </fieldset>
+                <fieldset>
+                    <legend>Ordenar por</legend>
+                    <label for="criterio">Criterio:</label>
+                    <select id="criterio" name="criterio">
+                        <option value="titulo">Título(A-Z)</option>
+                        <option value="anio-antiguo">Año(antiguo primero)</option>
+                        <option value="anio-nuevo">Año(nuevo primero)</option>
+                        <option value="rating-bajo">Rating(bajo primero)</option>
+                        <option value="rating-alto">Rating(alto primero)</option>
+                    </select>
+                </fieldset>
+                <button type="submit">Aplicar Filtros</button>
+                <button type="reset">Limpiar Filtros</button>
+            </form>
+        </section>
+
+        <section id="agregar">
+            <h2>Agregar nuevo comic</h2>
+            <form>
+                <fieldset>
+                    <legend>Información Básica</legend>
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" name="titulo" required minlength="1" maxlength="200"
+                        autocomplete="off">
+                    <label for="autor">Autor:</label>
+                    <input type="text" id="autor" name="autor" required autocomplete="off">
+                    <label for="artista">Artista:</label>
+                    <input type="text" id="artista" name="artista" autocomplete="off">
+                    <label for="editorial">Editorial:</label>
+                    <input type="text" id="editorial" name="editorial" autocomplete="off">
+                    <label for="anio">Año:</label>
+                    <input type="number" id="anio" name="anio" min="1900" max="2026">
+                    <label for="genero">Género:</label>
+                    <select id="genero" name="genero">
+                        <option value="">Selecciona un género</option>
+                        <option value="superhero">Superhero</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="drama">Drama</option>
+                        <option value="action">Action</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="science-fiction">Science Fiction</option>
+                        <option value="horror">Horror</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="romance">Romance</option>
+                        <option value="history">History</option>
+                        <option value="biography">Biography</option>
+                        <option value="autobiography">Autobiography</option>
+                        <option value="memoir">Memoir</option>
+                        <option value="poetry">Poetry</option>
+                    </select>
+
+                    <label for="paginas">Páginas:</label>
+                    <input type="number" id="paginas" name="paginas" min="1">
+                    <label for="portada">URL de la Portada:</label>
+                    <input type="url" id="portada" name="portada" placeholder="https://ejemplo.com/portada.jpg">
+                </fieldset>
+                <fieldset>
+                    <legend>Sinopsis</legend>
+                    <label for="sinopsis">Descripción del cómic:</label>
+                    <textarea id="sinopsis" name="sinopsis" placeholder="Máximo 500 caracteres" maxlength="500"
+                        rows="5"></textarea>
+                    <small>Máximo 500 caracteres</small>
+                </fieldset>
+                <fieldset>
+                    <legend>Mi Reseña Personal</legend>
+                    <label for="rating">Calificación:</label>
+                    <select id="rating" name="rating">
+                        <option value="">Sin calificar</option>
+                        <option value="1">⭐ 1 - Muy malo</option>
+                        <option value="2">⭐⭐ 2 - Malo</option>
+                        <option value="3">⭐⭐⭐ 3 - Regular</option>
+                        <option value="4">⭐⭐⭐⭐ 4 - Bueno</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 - Excelente</option>
+                    </select>
+                    <label for="comentario">Mi Reseña:</label>
+                    <textarea id="comentario" name="comentario" placeholder="Escribe tu reseña personal"
+                        rows="8"></textarea>
+
+                    <label for="estado-lectura">Estado de Lectura:</label>
+                    <select id="estado-lectura" name="estado-lectura">
+                        <option value="por-leer">Por Leer</option>
+                        <option value="leyendo">Leyendo</option>
+                        <option value="leido">Leído</option>
+                        <option value="abandonado">Abandonado</option>
+                    </select>
+
+                    <label for="fecha-lectura">Fecha de Lectura:</label>
+                    <input type="date" id="fecha-lectura" name="fecha-lectura">
+                </fieldset>
+
+                <button type="submit">Guardar Comic</button>
+                <button type="reset">Limpiar Formulario</button>
+            </form>
+
+        </section>
+        <section id="coleccion">
+            <header>
+                <h2>Todos los comics</h2>
+                <p>20 comics en tu coleccion</p>
+            </header>
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Watchmen de Alan Moore" width="300" height="200">
+                <h3>Watchmen</h3>
+                <p><strong>Autor:</strong> Alan Moore</p>
+                <p><strong>Artista:</strong> Dave Gibbons</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 1986</p>
+                <p><strong>Géneros:</strong> <span>Superhero</span>, <span>Mystery</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 416</p>
+                <p>Una obra maestra que deconstruye el género de superhéroes, explorando temas de moralidad, poder y la
+                    condición humana en un mundo al borde del apocalipsis nuclear.</p>
+                <p>
+                    <a href="#detalle-watchmen">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic The Sandman Vol. 1 de Neil Gaiman" width="300" height="200">
+                <h3>The Sandman Vol. 1</h3>
+                <p><strong>Autor:</strong> Neil Gaiman</p>
+                <p><strong>Artista:</strong> Sam Kieth</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 1989</p>
+                <p><strong>Géneros:</strong> <span>Fantasy</span>, <span>Horror</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 232</p>
+                <p>La historia de Morfeo, el Señor de los Sueños, quien escapa de su prisión después de 70 años y debe
+                    reconstruir su reino mientras enfrenta las consecuencias de su ausencia.</p>
+                <p>
+                    <a href="#detalle-sandman">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Maus de Art Spiegelman" width="300" height="200">
+                <h3>Maus</h3>
+                <p><strong>Autor:</strong> Art Spiegelman</p>
+                <p><strong>Artista:</strong> Art Spiegelman</p>
+                <p><strong>Editorial:</strong> Pantheon Books</p>
+                <p><strong>Año:</strong> 1991</p>
+                <p><strong>Géneros:</strong> <span>Biography</span>, <span>History</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 296</p>
+                <p>Una poderosa novela gráfica que narra la experiencia del padre del autor durante el Holocausto,
+                    representando a los judíos como ratones y a los nazis como gatos.</p>
+                <p>
+                    <a href="#detalle-maus">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Batman: The Dark Knight Returns de Frank Miller" width="300" height="200">
+                <h3>Batman: The Dark Knight Returns</h3>
+                <p><strong>Autor:</strong> Frank Miller</p>
+                <p><strong>Artista:</strong> Frank Miller</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 1986</p>
+                <p><strong>Géneros:</strong> <span>Superhero</span>, <span>Action</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 224</p>
+                <p>Bruce Wayne regresa como Batman después de 10 años de retiro para salvar a Gotham City de una nueva
+                    ola de crimen y enfrentar sus propios demonios.</p>
+                <p>
+                    <a href="#detalle-darkknight">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Saga Vol. 1 de Brian K. Vaughan" width="300" height="200">
+                <h3>Saga Vol. 1</h3>
+                <p><strong>Autor:</strong> Brian K. Vaughan</p>
+                <p><strong>Artista:</strong> Fiona Staples</p>
+                <p><strong>Editorial:</strong> Image Comics</p>
+                <p><strong>Año:</strong> 2012</p>
+                <p><strong>Géneros:</strong> <span>Sci-Fi</span>, <span>Fantasy</span>, <span>Romance</span></p>
+                <p><strong>Páginas:</strong> 160</p>
+                <p>Una épica space opera sobre dos amantes de especies enemigas que luchan por proteger a su hija
+                    mientras huyen de ambos lados de una guerra galáctica.</p>
+                <p>
+                    <a href="#detalle-saga">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic V for Vendetta de Alan Moore" width="300" height="200">
+                <h3>V for Vendetta</h3>
+                <p><strong>Autor:</strong> Alan Moore</p>
+                <p><strong>Artista:</strong> David Lloyd</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 1988</p>
+                <p><strong>Géneros:</strong> <span>Dystopian</span>, <span>Thriller</span>, <span>Political</span></p>
+                <p><strong>Páginas:</strong> 296</p>
+                <p>En una Inglaterra fascista del futuro, un misterioso revolucionario enmascarado lucha contra un
+                    gobierno totalitario mientras busca venganza personal.</p>
+                <p>
+                    <a href="#detalle-vendetta">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Y: The Last Man Vol. 1 de Brian K. Vaughan" width="300" height="200">
+                <h3>Y: The Last Man Vol. 1</h3>
+                <p><strong>Autor:</strong> Brian K. Vaughan</p>
+                <p><strong>Artista:</strong> Pia Guerra</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 2002</p>
+                <p><strong>Géneros:</strong> <span>Sci-Fi</span>, <span>Adventure</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 128</p>
+                <p>Yorick Brown es el último hombre vivo en la Tierra después de una plaga misteriosa que mata a todos
+                    los mamíferos machos, excepto a él y su mono mascota.</p>
+                <p>
+                    <a href="#detalle-ylastman">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Persepolis de Marjane Satrapi" width="300" height="200">
+                <h3>Persepolis</h3>
+                <p><strong>Autor:</strong> Marjane Satrapi</p>
+                <p><strong>Artista:</strong> Marjane Satrapi</p>
+                <p><strong>Editorial:</strong> Pantheon Books</p>
+                <p><strong>Año:</strong> 2000</p>
+                <p><strong>Géneros:</strong> <span>Biography</span>, <span>History</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 160</p>
+                <p>Autobiografía gráfica de Marjane Satrapi sobre su infancia en Irán durante y después de la Revolución
+                    Islámica, y su adolescencia en Europa.</p>
+                <p>
+                    <a href="#detalle-persepolis">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Fables Vol. 1 de Bill Willingham" width="300" height="200">
+                <h3>Fables Vol. 1</h3>
+                <p><strong>Autor:</strong> Bill Willingham</p>
+                <p><strong>Artista:</strong> Lan Medina</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 2002</p>
+                <p><strong>Géneros:</strong> <span>Fantasy</span>, <span>Mystery</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 128</p>
+                <p>Los personajes de cuentos de hadas viven exiliados en Nueva York después de que un adversario
+                    misterioso conquistara sus tierras mágicas.</p>
+                <p>
+                    <a href="#detalle-fables">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic The Walking Dead Vol. 1 de Robert Kirkman" width="300" height="200">
+                <h3>The Walking Dead Vol. 1</h3>
+                <p><strong>Autor:</strong> Robert Kirkman</p>
+                <p><strong>Artista:</strong> Tony Moore</p>
+                <p><strong>Editorial:</strong> Image Comics</p>
+                <p><strong>Año:</strong> 2004</p>
+                <p><strong>Géneros:</strong> <span>Horror</span>, <span>Drama</span>, <span>Survival</span></p>
+                <p><strong>Páginas:</strong> 136</p>
+                <p>Rick Grimes despierta de un coma para descubrir que el mundo ha sido devastado por un apocalipsis
+                    zombie y debe encontrar a su familia mientras sobrevive.</p>
+                <p>
+                    <a href="#detalle-walkingdead">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Scott Pilgrim Vol. 1 de Bryan Lee O'Malley" width="300" height="200">
+                <h3>Scott Pilgrim Vol. 1</h3>
+                <p><strong>Autor:</strong> Bryan Lee O'Malley</p>
+                <p><strong>Artista:</strong> Bryan Lee O'Malley</p>
+                <p><strong>Editorial:</strong> Oni Press</p>
+                <p><strong>Año:</strong> 2004</p>
+                <p><strong>Géneros:</strong> <span>Comedy</span>, <span>Romance</span>, <span>Action</span></p>
+                <p><strong>Páginas:</strong> 168</p>
+                <p>Scott Pilgrim debe derrotar a los siete ex-novios malvados de Ramona Flowers para poder salir con
+                    ella, en una mezcla de romance, comedia y acción estilo videojuego.</p>
+                <p>
+                    <a href="#detalle-scottpilgrim">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Bone: The Complete Edition de Jeff Smith" width="300" height="200">
+                <h3>Bone: The Complete Edition</h3>
+                <p><strong>Autor:</strong> Jeff Smith</p>
+                <p><strong>Artista:</strong> Jeff Smith</p>
+                <p><strong>Editorial:</strong> Cartoon Books</p>
+                <p><strong>Año:</strong> 1991</p>
+                <p><strong>Géneros:</strong> <span>Fantasy</span>, <span>Adventure</span>, <span>Comedy</span></p>
+                <p><strong>Páginas:</strong> 1344</p>
+                <p>Los primos Bone son expulsados de su ciudad natal y se pierden en un valle misterioso lleno de
+                    criaturas maravillosas y peligros oscuros.</p>
+                <p>
+                    <a href="#detalle-bone">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Locke & Key Vol. 1 de Joe Hill" width="300" height="200">
+                <h3>Locke & Key Vol. 1</h3>
+                <p><strong>Autor:</strong> Joe Hill</p>
+                <p><strong>Artista:</strong> Gabriel Rodríguez</p>
+                <p><strong>Editorial:</strong> IDW Publishing</p>
+                <p><strong>Año:</strong> 2008</p>
+                <p><strong>Géneros:</strong> <span>Horror</span>, <span>Fantasy</span>, <span>Mystery</span></p>
+                <p><strong>Páginas:</strong> 152</p>
+                <p>Después de la muerte de su padre, los hermanos Locke se mudan a Keyhouse, una mansión ancestral llena
+                    de llaves mágicas que abren puertas a poderes extraordinarios y peligros terribles.</p>
+                <p>
+                    <a href="#detalle-lockekey">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Invincible Vol. 1 de Robert Kirkman" width="300" height="200">
+                <h3>Invincible Vol. 1</h3>
+                <p><strong>Autor:</strong> Robert Kirkman</p>
+                <p><strong>Artista:</strong> Cory Walker</p>
+                <p><strong>Editorial:</strong> Image Comics</p>
+                <p><strong>Año:</strong> 2003</p>
+                <p><strong>Géneros:</strong> <span>Superhero</span>, <span>Action</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 120</p>
+                <p>Mark Grayson es un adolescente normal hasta que desarrolla superpoderes como su padre, el superhéroe
+                    más poderoso del planeta, pero descubre que el legado de su padre esconde secretos oscuros.</p>
+                <p>
+                    <a href="#detalle-invincible">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Preacher Vol. 1 de Garth Ennis" width="300" height="200">
+                <h3>Preacher Vol. 1</h3>
+                <p><strong>Autor:</strong> Garth Ennis</p>
+                <p><strong>Artista:</strong> Steve Dillon</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 1995</p>
+                <p><strong>Géneros:</strong> <span>Horror</span>, <span>Western</span>, <span>Drama</span></p>
+                <p><strong>Páginas:</strong> 352</p>
+                <p>Jesse Custer, un predicador texano poseído por una entidad sobrenatural, emprende un viaje para
+                    encontrar a Dios y hacerlo responder por sus crímenes contra la humanidad.</p>
+                <p>
+                    <a href="#detalle-preacher">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Hellboy Vol. 1 de Mike Mignola" width="300" height="200">
+                <h3>Hellboy Vol. 1</h3>
+                <p><strong>Autor:</strong> Mike Mignola</p>
+                <p><strong>Artista:</strong> Mike Mignola</p>
+                <p><strong>Editorial:</strong> Dark Horse Comics</p>
+                <p><strong>Año:</strong> 1994</p>
+                <p><strong>Géneros:</strong> <span>Horror</span>, <span>Fantasy</span>, <span>Action</span></p>
+                <p><strong>Páginas:</strong> 128</p>
+                <p>Hellboy, un demonio invocado por los nazis pero criado por humanos, trabaja para la Oficina de
+                    Investigación y Defensa Paranormal combatiendo amenazas sobrenaturales.</p>
+                <p>
+                    <a href="#detalle-hellboy">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Transmetropolitan Vol. 1 de Warren Ellis" width="300" height="200">
+                <h3>Transmetropolitan Vol. 1</h3>
+                <p><strong>Autor:</strong> Warren Ellis</p>
+                <p><strong>Artista:</strong> Darick Robertson</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 1997</p>
+                <p><strong>Géneros:</strong> <span>Sci-Fi</span>, <span>Cyberpunk</span>, <span>Political</span></p>
+                <p><strong>Páginas:</strong> 144</p>
+                <p>Spider Jerusalem, un periodista gonzo cínico, regresa a la ciudad para exponer la corrupción política
+                    y social en un futuro distópico y tecnológicamente avanzado.</p>
+                <p>
+                    <a href="#detalle-transmetropolitan">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Black Hole de Charles Burns" width="300" height="200">
+                <h3>Black Hole</h3>
+                <p><strong>Autor:</strong> Charles Burns</p>
+                <p><strong>Artista:</strong> Charles Burns</p>
+                <p><strong>Editorial:</strong> Pantheon Books</p>
+                <p><strong>Año:</strong> 2005</p>
+                <p><strong>Géneros:</strong> <span>Horror</span>, <span>Drama</span>, <span>Coming-of-age</span></p>
+                <p><strong>Páginas:</strong> 368</p>
+                <p>En los años 70, una enfermedad de transmisión sexual causa mutaciones grotescas en adolescentes,
+                    explorando temas de alienación, sexualidad y el terror de crecer.</p>
+                <p>
+                    <a href="#detalle-blackhole">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic The Boys Vol. 1 de Garth Ennis" width="300" height="200">
+                <h3>The Boys Vol. 1</h3>
+                <p><strong>Autor:</strong> Garth Ennis</p>
+                <p><strong>Artista:</strong> Darick Robertson</p>
+                <p><strong>Editorial:</strong> Dynamite Entertainment</p>
+                <p><strong>Año:</strong> 2006</p>
+                <p><strong>Géneros:</strong> <span>Superhero</span>, <span>Action</span>, <span>Dark Comedy</span></p>
+                <p><strong>Páginas:</strong> 152</p>
+                <p>Un grupo de vigilantes se dedica a mantener a raya a los superhéroes corruptos que abusan de sus
+                    poderes, en una sátira brutal del género de superhéroes.</p>
+                <p>
+                    <a href="#detalle-theboys">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+
+            <article>
+                <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                    alt="Portada del cómic Daytripper de Fábio Moon & Gabriel Bá" width="300" height="200">
+                <h3>Daytripper</h3>
+                <p><strong>Autor:</strong> Fábio Moon & Gabriel Bá</p>
+                <p><strong>Artista:</strong> Fábio Moon & Gabriel Bá</p>
+                <p><strong>Editorial:</strong> DC Comics</p>
+                <p><strong>Año:</strong> 2010</p>
+                <p><strong>Géneros:</strong> <span>Drama</span>, <span>Literary</span>, <span>Slice of Life</span></p>
+                <p><strong>Páginas:</strong> 256</p>
+                <p>La vida de Brás de Oliva Domingos se explora a través de diferentes momentos cruciales, cada uno
+                    terminando con su muerte, reflexionando sobre el significado de la vida y las elecciones que
+                    hacemos.</p>
+                <p>
+                    <a href="#detalle-daytripper">Ver Detalles</a>
+                    <button type="button">Marcar como Leído</button>
+                    <button type="button">Agregar a Favoritos</button>
+                </p>
+            </article>
+        </section>
+        <section id="estadisticas">
+            <h2>Mis estadísticas de lectura</h2>
+            <div id="estadisticas-container">
+
+                <article>
+                    <h3>Total de Cómics</h3>
+                    <p aria-label="20 cómics en total">20</p>
+                </article>
+                <article>
+                    <h3>Cómics Leídos</h3>
+                    <p aria-label="8 cómics leídos">8</p>
+                </article>
+                <article>
+                    <h3>Por Leer</h3>
+                    <p aria-label="10 cómics por leer">10</p>
+                </article>
+                <article>
+                    <h3>Favoritos</h3>
+                    <p aria-label="5 cómics favoritos">5</p>
+                </article>
+            </div>
+            <div aria-labelledby="generos-mas-leidos">
+                <h3 id="generos-mas-leidos">Géneros Más Leídos</h3>
+                <ol>
+                    <li>
+                        <article>
+                            <p><strong>Género:</strong> <span>Superhero</span></p>
+                            <p><strong>Cantidad:</strong> 5</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <p><strong>Género:</strong> <span>Drama</span></p>
+                            <p><strong>Cantidad:</strong> 5</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <p><strong>Género:</strong> <span>Action</span></p>
+                            <p><strong>Cantidad:</strong> 5</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <p><strong>Género:</strong> <span>Horror</span></p>
+                            <p><strong>Cantidad:</strong> 3</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <p><strong>Género:</strong> <span>Sci-Fi</span></p>
+                            <p><strong>Cantidad:</strong> 2</p>
+                        </article>
+                    </li>
+                </ol>
+            </div>
+            <div aria-labelledby="promedio-calificacion">
+                <h3 id="promedio-calificacion">Promedio de Calificación</h3>
+                <p><span aria-label="Promedio de calificación: 4.2 sobre 5">⭐⭐⭐⭐ 4.2/5</span></p>
+            </div>
+            <div aria-labelledby="comics-este-anio">
+                <h3 id="comics-este-anio">Cómics Leídos Este Año</h3>
+                <p aria-label="5 cómics leídos en 2026">5</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section>
+            <h3>ComicTracker</h3>
+            <p>Tu compañero para gestionar tu colección de cómics</p>
+        </section>
+        <section>
+            <h4>Enlaces rapidos</h4>
+            <ul>
+                <li>
+                    <a href="#inicio">Inicio</a>
+                </li>
+                <li>
+                    <a href="#coleccion">Mi Colección</a>
+                </li>
+                <li>
+                    <a href="#estadisticas">Estadísticas</a>
+                </li>
+
+            </ul>
+        </section>
+        <section>
+            <h4>Informacion</h4>
+            <ul>
+                <li>
+                    <a href="#sobre">Sobre el proyecto</a>
+                </li>
+                <li>
+                    <a href="#contacto">Contacto</a>
+                </li>
+                <li>
+                    <a href="#privacidad">Privacidad</a>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <p>&copy; 2026 ComicTracker - Proyecto de aprendizaje HTML, CSS, JavaScript</p>
+            <p>Desarrollado por <strong>Cattcloud</strong></p>
+        </section>
+    </footer>
+    <div id="modal-detalle" role="dialog" aria-labelledby="modal-titulo" aria-describedby="modal-description"
+        aria-modal="true" hidden>
+        <header>
+            <h2 id="modal-titulo">Detalles del cómic: Watchmen</h2>
+            <button id="modal-cerrar" type="button" aria-label="Cerrar modal">
+                <span aria-hidden="true">❌</span>
+            </button>
+        </header>
+        <div role="document" id="modal-description">
+            <img src="https://www.shutterstock.com/image-vector/comic-books-dialog-bubbles-cartoon-600nw-2490655329.jpg"
+                alt="Portada del cómic Watchmen" width="300" height="200">
+            <section>
+                <h3>Informacion del cómic</h3>
+                <dl>
+                    <dt>Autor</dt>
+                    <dd>Alan Moore</dd>
+                    <dt>Artista</dt>
+                    <dd>Dave Gibbons</dd>
+                    <dt>Editorial</dt>
+                    <dd>DC Comics</dd>
+                    <dt>Año</dt>
+                    <dd>1986</dd>
+                    <dt>Géneros</dt>
+                    <dd>Superhero, Political Fiction, Mystery</dd>
+                    <dt>Páginas</dt>
+                    <dd>416</dd>
+                </dl>
+            </section>
+            <section>
+                <h3>Sinopsis</h3>
+                <p>En una historia alternativa de la Guerra Fría, un grupo de vigilantes enmascarados se ve envuelto en
+                    una
+                    conspiración que amenaza con desencadenar una guerra nuclear.</p>
+            </section>
+            <section>
+                <h3>Mi reseña</h3>
+                <p>⭐⭐⭐⭐⭐ 5/5</p>
+                <p>Me encanto este cómic, es una obra maestra del género de superhéroes.</p>
+            </section>
+            <section>
+                <h3>Estado de lectura</h3>
+                <p><strong>Estado:</strong>Leido</p>
+                <p><strong>Fecha de lectura:</strong>2026-02-11</p>
+            </section>
+
+            <footer>
+                <button type="button">Editar</button>
+                <button type="button">Eliminar</button>
+                <button type="button">Cerrar</button>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>

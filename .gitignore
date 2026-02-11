@@ -1,0 +1,24 @@
+# Archivos del sistema operativo
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Archivos de editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Node modules (si usas Node.js en el futuro)
+node_modules/
+
+doc/
+
+# Archivos de entorno (si usas variables de entorno)
+.env
+.env.local
