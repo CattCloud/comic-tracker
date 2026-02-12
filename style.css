@@ -1,0 +1,225 @@
+
+:root{
+    --var-color-primary: hsl(200, 100%, 50%);
+    --var-color-secondary: hsl(100,100%,50%);
+    --var-color-accent: hsl(0,100%,50%);
+    --var-color-gray-100: hsl(0,0%,100%);
+    --var-color-gray-200: hsl(0,0%,90%);
+    --var-color-gray-300: hsl(0,0%,80%);
+    --var-color-gray-700: hsl(0,0%,40%);
+    --var-color-gray-900: hsl(0,0%,10%);
+    --var-color-success: #28a745;
+    --var-color-warning: #ffc107;
+    --var-color-danger: #dc3545;
+    --var-color-info: #17a2b8;
+    --var-color-text-primary: #212529;
+    --var-color-text-secondary: #6c757d;
+    --var-color-text-muted: #adb5bd;
+    --var-color-bg-primary: #ffffff;
+    --var-color-bg-secondary: #f8f9fa;
+    --var-spacing-xs: 4px;
+    --var-spacing-sm: 8px;
+    --var-spacing-md: 16px;
+    --var-spacing-lg: 24px;
+    --var-spacing-xl: 32px;
+    --var-spacing-2xl: 48px;
+    --var-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --var-font-family-heading: "Georgia", serif;
+    --var-font-family-mono: "Courier New", monospace;
+    --var-font-size-xs: 12px;
+    --var-font-size-sm: 14px;
+    --var-font-size-base: 16px;
+    --var-font-size-lg: 18px;
+    --var-font-size-xl: 20px;
+    --var-font-size-2xl: 24px;
+    --var-font-size-3xl: 30px;
+    --var-font-size-4xl: 36px;
+    --var-font-weight-normal: 400;
+    --var-font-weight-medium: 500;
+    --var-font-weight-semibold: 600;
+    --var-font-weight-bold: 700;
+    --var-line-height-tight: 1.25;
+    --var-line-height-normal: 1.5;
+    --var-line-height-relaxed: 1.75;
+    --var-border-radius-sm: 4px;
+    --var-border-radius-md: 8px;
+    --var-border-radius-lg: 12px;
+    --var-border-radius-full: 9999px;
+    --var-border-width-thin: 1px;
+    --var-border-width-medium: 2px;
+    --var-border-width-thick: 4px;
+    --var-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --var-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --var-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --var-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --var-transition-fast: 150ms ease-in-out;
+    --var-transition-base: 250ms ease-in-out;
+    --var-transition-slow: 350ms ease-in-out;
+    --var-z-dropdown: 1000;
+    --var-z-sticky: 1020;
+    --var-z-fixed: 1030;
+    --var-z-modal-backdrop: 1040;
+    --var-z-modal: 1050;
+    --var-z-tooltip: 1070;
+}
+
+
+/* ========================================
+   RESET CSS Y BOX-SIZING
+   ======================================== */
+
+/* 
+  1. RESET UNIVERSAL CON BOX-SIZING
+  
+  ¿Qué hace esto?
+  - Aplica box-sizing: border-box a TODOS los elementos
+  - Incluye pseudo-elementos (::before y ::after)
+  
+  ¿Por qué?
+  - Con border-box, el padding y border se incluyen en el width/height
+  - Hace los cálculos de tamaño mucho más predecibles
+  - Es el estándar moderno de CSS
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 
+  2. RESET DEL BODY
+  
+  ¿Qué hace esto?
+  - Elimina márgenes por defecto
+  - Asegura que el body ocupe al menos toda la altura de la pantalla
+  
+  ¿Por qué?
+  - Los navegadores agregan margin por defecto al body
+  - min-height: 100vh hace que el footer se quede abajo en páginas cortas
+*/
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  /* Usamos variables */
+  font-family: var(--var-font-family-base);
+  font-size: var(--var-font-size-base);
+  line-height: var(--var-line-height-normal);   
+  color: var(--var-color-text-primary);
+  background-color: var(--var-color-bg-primary);
+}
+
+/* 
+  3. RESET DE LISTAS
+  
+  ¿Qué hace esto?
+  - Elimina los bullets (viñetas) y números de las listas
+  - Elimina el padding por defecto
+  
+  ¿Por qué?
+  - Muchas veces usamos <ul> y <ol> para navegación, no para listas reales
+  - Es más fácil agregar estilos cuando lo necesites que quitarlos
+*/
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 
+  4. RESET DE IMÁGENES
+  
+  ¿Qué hace esto?
+  - max-width: 100% previene que las imágenes se desborden
+  - height: auto mantiene el aspect ratio (proporción)
+  - display: block elimina el espacio extra debajo de las imágenes
+  
+  ¿Por qué?
+  - Las imágenes por defecto son inline, lo que causa espacios extraños
+  - Esto las hace responsive automáticamente
+*/
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 
+  5. RESET DE BOTONES Y FORMULARIOS
+  
+  ¿Qué hace esto?
+  - Hace que botones e inputs hereden la tipografía del documento
+  - Elimina estilos por defecto del navegador
+  
+  ¿Por qué?
+  - Los navegadores usan fuentes del sistema para formularios
+  - Queremos que usen nuestras fuentes personalizadas
+*/
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* 
+  6. RESET DE PÁRRAFOS Y HEADINGS
+  
+  ¿Qué hace esto?
+  - Elimina márgenes superiores de headings y párrafos
+  
+  ¿Por qué?
+  - Los márgenes superiores pueden causar colapso de márgenes
+  - Es más fácil controlar el espaciado con margin-bottom
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: var(--var-spacing-md);
+}
+
+h1{
+    font-size: var(--var-font-size-4xl);
+    font-weight: var(--var-font-weight-semibold);
+    line-height: var(--var-line-height-tight);
+}
+
+h2{
+    font-size: var(--var-font-size-3xl);
+    font-weight: var(--var-font-weight-semibold);
+    line-height: var(--var-line-height-tight);
+}
+
+h3{
+    font-size: var(--var-font-size-2xl);
+    font-weight: var(--var-font-weight-medium);
+}
+
+h4{
+    font-size: var(--var-font-size-xl);
+    font-weight: var(--var-font-weight-medium);
+}
+
+a{
+    color: var(--var-color-primary);
+    text-decoration: none;
+    transition: var(--var-transition-base);
+}
+
+a:hover{
+    text-decoration: underline;
+    color: var(--var-color-secondary);
+}
+
+p{
+  margin-bottom: var(--var-spacing-md);
+}
